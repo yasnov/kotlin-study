@@ -1,16 +1,19 @@
 package ru.yasnovmi.springdemo.controllers
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import ru.yasnovmi.springdemo.service.Counter
 import java.net.URL
 
 
 @RestController
 class HtmlController {
 
-    val counter: Counter = newDomainCounter()
+    @Autowired
+    lateinit var counter: Counter
 
     @RequestMapping("hello")
     fun helloWorld(): String {
