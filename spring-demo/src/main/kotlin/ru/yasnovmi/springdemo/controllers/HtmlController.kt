@@ -1,6 +1,7 @@
 package ru.yasnovmi.springdemo.controllers
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -15,6 +16,7 @@ import java.net.URL
 class HtmlController {
 
     @Autowired
+    @Qualifier("dbDomainCounter")
     lateinit var counter: Counter
 
     @RequestMapping("hello")
@@ -37,8 +39,8 @@ class HtmlController {
     }
 
     @RequestMapping("top", method = [RequestMethod.GET])
-    fun getTop(): String {
-        return counter.getTop().toString()
+    fun getTop(): List<Pair<String, Int>> {
+        return counter.getTop()
     }
 }
 
@@ -49,9 +51,10 @@ fun parseUrl(url: String): String {
         URL("http://$url")
     }
 
-    val pattern = "^[-a-zA-Z0-9+&@#/%?=~_|!:,;]+\\.[-a-zA-Z0-9+&@#/%?=~_|!:,.;]+\$".toRegex()
-    if (!u.host.matches(pattern)) {
+    val split = u.host.split(".")
+    if (split.size < 2) {
         throw ResponseStatusException(HttpStatus.BAD_REQUEST, "$url not correct URL")
     }
-    return u.host.toLowerCase()
+
+    return split.takeLast(2).joinToString(".").toLowerCase()
 }

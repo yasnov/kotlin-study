@@ -1,8 +1,10 @@
 package ru.yasnovmi.springdemo.service
 
+import org.springframework.stereotype.Service
 import java.util.HashMap
 
-class DomainCounterRevers : Counter {
+@Service("mapDomainCounter")
+class MapDomainCounter : Counter {
     private val items: MutableMap<String, Int> = HashMap()
 
     override fun addNew(url: String) {
@@ -11,6 +13,6 @@ class DomainCounterRevers : Counter {
     }
 
     override fun getTop(): List<Pair<String, Int>> {
-        return items.toList().sortedBy { it.second }.take(10)
+        return items.toList().sortedByDescending { it.second }.take(10)
     }
 }

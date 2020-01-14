@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.yasnovmi.springdemo.controllers.Domain
 
-@Service
-class DomainCounter : Counter {
+@Service("dbDomainCounter")
+class DbDomainCounter : Counter {
 
     @Autowired
     lateinit var domainRepository: DomainRepository
