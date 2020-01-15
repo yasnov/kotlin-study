@@ -1,4 +1,4 @@
-package ru.yasnovmi.springdemo.controllers
+package ru.yasnovmi.springdemo.model
 
 import javax.persistence.*
 
@@ -8,7 +8,9 @@ data class Domain(
         @Id
         @GeneratedValue
         val id: Long?,
-        @Column(name = "domain") val domain: String,
-        @Column(name = "count") var count: Long
+        @Column(name = "domain")
+        val domain: String,
+        @Column(name = "count")
+        var count: Long
 )
 

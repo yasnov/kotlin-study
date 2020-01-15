@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
+import ru.yasnovmi.springdemo.dto.DomainDto
 import ru.yasnovmi.springdemo.service.Counter
 import java.net.MalformedURLException
 import java.net.URL
@@ -41,7 +42,7 @@ class HtmlController {
 
     @RequestMapping("new", method = [RequestMethod.POST])
     fun newJsonUrl(
-            @RequestBody domain: Domain
+            @RequestBody domain: DomainDto
     ): String {
         counter.addNew(parseUrl(domain.domain))
         return "ok"
