@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import ru.yasnovmi.springdemo.service.Counter
@@ -30,11 +31,19 @@ class HtmlController {
     }
 
     @RequestMapping("new", method = [RequestMethod.GET])
-    fun newURL(
+    fun newParamUrl(
             @RequestParam("url", required = true)
             url: String
     ): String {
         counter.addNew(parseUrl(url))
+        return "ok"
+    }
+
+    @RequestMapping("new", method = [RequestMethod.POST])
+    fun newJsonUrl(
+            @RequestBody domain: Domain
+    ): String {
+        counter.addNew(parseUrl(domain.domain))
         return "ok"
     }
 
