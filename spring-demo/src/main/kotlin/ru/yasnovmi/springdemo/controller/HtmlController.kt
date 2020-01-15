@@ -1,21 +1,23 @@
-package ru.yasnovmi.springdemo.controllers
+package ru.yasnovmi.springdemo.controller
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import reactor.core.publisher.Mono
 import ru.yasnovmi.springdemo.dto.DomainDto
 import ru.yasnovmi.springdemo.service.Counter
+import ru.yasnovmi.springdemo.webclient.DogWebClient
 import java.net.MalformedURLException
 import java.net.URL
 
 @RestController
 class HtmlController {
+
+    @Autowired
+    lateinit var dogClient: DogWebClient
 
     @Autowired
     @Qualifier("dbDomainCounter")
@@ -46,6 +48,13 @@ class HtmlController {
     ): String {
         counter.addNew(parseUrl(domain.domain))
         return "ok"
+    }
+
+    @RequestMapping("dog", method = [RequestMethod.GET], produces = [MediaType.TEXT_HTML_VALUE])
+    fun getRandomDog(): Mono<String> {
+        return dogClient.getDogImage().map {
+            "<img src='${it.message}'/>"
+        }
     }
 
     @RequestMapping("top", method = [RequestMethod.GET])
