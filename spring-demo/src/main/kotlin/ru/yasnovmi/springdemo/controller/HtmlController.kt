@@ -9,9 +9,8 @@ import org.springframework.web.server.ResponseStatusException
 import reactor.core.publisher.Mono
 import ru.yasnovmi.springdemo.dto.DomainDto
 import ru.yasnovmi.springdemo.service.Counter
+import ru.yasnovmi.springdemo.utils.parseUrl
 import ru.yasnovmi.springdemo.webclient.DogWebClient
-import java.net.MalformedURLException
-import java.net.URL
 
 @RestController
 class HtmlController {
@@ -61,19 +60,4 @@ class HtmlController {
     fun getTop(): List<Pair<String, Int>> {
         return counter.getTop()
     }
-}
-
-fun parseUrl(url: String): String {
-    val u = try {
-        URL(url)
-    } catch (ex: MalformedURLException) {
-        URL("http://$url")
-    }
-
-    val split = u.host.split(".")
-    if (split.size < 2) {
-        throw ResponseStatusException(HttpStatus.BAD_REQUEST, "$url not correct URL")
-    }
-
-    return split.takeLast(2).joinToString(".").toLowerCase()
 }
