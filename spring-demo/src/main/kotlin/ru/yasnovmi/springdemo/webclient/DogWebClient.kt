@@ -7,10 +7,12 @@ import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClient.create
 import reactor.core.publisher.Mono
 import ru.yasnovmi.springdemo.dto.dog.DogDto
+import ru.yasnovmi.springdemo.profiler.Profiling
 import javax.annotation.PostConstruct
 
 @Component
-class DogWebClient() {
+@Profiling
+class DogWebClient : IDogWebClient {
 
     @Value("\${dog.api.url}")
     lateinit var dogApiUrl: String
@@ -22,7 +24,7 @@ class DogWebClient() {
         client = create(dogApiUrl)
     }
 
-    fun getDogImage(): Mono<DogDto> {
+    override fun getDogImage(): Mono<DogDto> {
         return client.get()
                 .uri("/breeds/image/random").accept(MediaType.APPLICATION_JSON)
                 .exchange()

@@ -1,8 +1,10 @@
 package ru.yasnovmi.springdemo.service
 
 import org.springframework.stereotype.Service
+import ru.yasnovmi.springdemo.profiler.Profiling
 import java.util.HashMap
 
+@Profiling
 @Service("mapDomainCounter")
 class MapDomainCounter : Counter {
     private val items: MutableMap<String, Int> = HashMap()

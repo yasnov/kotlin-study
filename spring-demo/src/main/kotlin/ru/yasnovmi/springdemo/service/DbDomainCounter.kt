@@ -5,7 +5,9 @@ import ru.yasnovmi.springdemo.repository.DomainRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import ru.yasnovmi.springdemo.model.Domain
+import ru.yasnovmi.springdemo.profiler.Profiling
 
+@Profiling
 @Service("dbDomainCounter")
 class DbDomainCounter : Counter {
 
