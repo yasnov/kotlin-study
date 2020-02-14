@@ -3,10 +3,9 @@ package ru.yasnovmi.springdemo.utils
 import org.springframework.beans.factory.config.BeanDefinition
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory
-import org.springframework.stereotype.Component
 import kotlin.reflect.jvm.jvmName
 
-@Component
+//@Component
 class DeprecationHandlerBeanFactoryPostProcessor : BeanFactoryPostProcessor {
 
     override fun postProcessBeanFactory(beanFactory: ConfigurableListableBeanFactory) {

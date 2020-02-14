@@ -2,7 +2,7 @@ package ru.yasnovmi.springdemo.service
 
 import org.springframework.stereotype.Service
 import ru.yasnovmi.springdemo.profiler.Profiling
-import java.util.HashMap
+import java.util.*
 
 @Profiling
 @Service("mapDomainCounter")
